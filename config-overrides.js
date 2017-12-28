@@ -1,5 +1,7 @@
 const tsImportPluginFactory = require('ts-import-plugin')
 const { getLoader } = require('react-app-rewired')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const path = require('path')
 
 module.exports = function (config, env) {
     const tsLoader = getLoader(
@@ -19,5 +21,10 @@ module.exports = function (config, env) {
             })]
         })
     }
+
+    config.resolve.plugins = [new TsconfigPathsPlugin({
+        configFile: path.resolve(__dirname, './tsconfig.json')
+    })]
+
     return config
 }

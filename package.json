@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-router-dom": "^4.2.3",
     "antd": "^3.0.3",
+    "mockjs": "^1.0.1-beta3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.8.0"
+    "react-scripts-ts": "2.8.0",
+    "tsconfig-paths-webpack-plugin": "^1.2.0"
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts-ts",
