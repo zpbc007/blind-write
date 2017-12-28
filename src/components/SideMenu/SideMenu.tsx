@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {Menu, Icon} from 'antd' 
+import React, { Component } from 'react'
+import { Menu, Icon } from 'antd' 
 
-import {LeftMenuItem, LeftMenu} from '@constant/LeftMenu'
+import { LeftMenuItem, LeftMenu } from '@constant/LeftMenu'
 
 import './SideMenu.css'
 /**
@@ -11,7 +11,7 @@ export default class SideMenu extends Component {
     render () {
         return (
             <div>
-                <div className="logo"></div>
+                <div className="logo" />
                 <Menu theme="dark" mode="inline">
                     {LeftMenu.map((item: LeftMenuItem) => {
                             return (
