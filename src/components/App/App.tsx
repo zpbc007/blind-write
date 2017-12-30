@@ -3,9 +3,12 @@ import { Layout } from 'antd'
 const { Header, Sider, Content} = Layout
 
 import SideMenu from '@components/SideMenu/SideMenu'
+import { MenuContentList, MenuContentItem } from '@constant/MenuContentList'
+import { ClickParam } from 'antd/lib/menu';
 
 export interface State {
-    collapsed: boolean
+    collapsed: boolean,
+    contentList?: Array<MenuContentItem>
 }
 
 export interface Prop {}
@@ -15,15 +18,23 @@ export default class App extends Component<Prop, State> {
     constructor (props: Prop) {
         super(props)
         this.state = {
-            collapsed: false
+            collapsed: false,
+            contentList: []
         }
-
         this.onCollapse = this.onCollapse.bind(this)
+        this.searchContent = this.searchContent.bind(this)
     }
 
     onCollapse () {
         this.setState({
             collapsed: !this.state.collapsed
+        })
+    }
+
+    searchContent ({key}: ClickParam) {
+        this.setState({
+            ...this.state,
+            contentList: MenuContentList[key]
         })
     }
 
@@ -36,13 +47,28 @@ export default class App extends Component<Prop, State> {
                     collapsed={this.state.collapsed}
                     onCollapse={this.onCollapse}
                 >
-                    <SideMenu />
+                    <SideMenu 
+                        menuClick={this.searchContent}
+                    />
                 </Sider>
                 {/* 右侧内容区域 */}
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }}/>
                     <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
-                        content
+                        {
+                            this.state.contentList ? 
+                                this.state.contentList.map((contentItem: MenuContentItem) => {
+                                    return (
+                                        <div key={contentItem.link}>
+                                            <span>{contentItem.text}</span>
+                                            <span>{contentItem.icon}</span>
+                                            <span>{contentItem.link}</span>
+                                            <span>{contentItem.info}</span>
+                                        </div>
+                                    )
+                                }) : 
+                                '暂无数据'
+                        }
                     </Content>
                 </Layout>
             </Layout>

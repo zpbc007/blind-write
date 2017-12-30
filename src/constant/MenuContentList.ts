@@ -9,8 +9,8 @@ export interface MenuContentItemList {
     [key: string]: Array<MenuContentItem> 
 }
 
-export const MenuContentList:MenuContentItemList = {
-    "1": [
+export const MenuContentList: MenuContentItemList = {
+    '1': [
         {
             text: 'Counter',
             info: '测试',
