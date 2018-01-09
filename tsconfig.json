@@ -19,7 +19,9 @@
     "baseUrl": ".",          
     "paths": {
         "@components/*": ["src/components/*"],
-        "@constant/*": ["src/constant/*"]
+        "@constant/*": ["src/constant/*"],
+        "@page/*": ["src/page/*"],
+        "@route/*": ["src/route/*"]
     },
     "allowSyntheticDefaultImports": true   
   },

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Layout } from 'antd'
 const { Header, Sider, Content} = Layout
+import { ClickParam } from 'antd/lib/menu'
 
 import SideMenu from '@components/SideMenu/SideMenu'
 import { MenuContentList, MenuContentItem } from '@constant/MenuContentList'
-import { ClickParam } from 'antd/lib/menu';
+import MenuCard from '@components/MenuCard/MenuCard'
+import router from '@route/router'
 
 export interface State {
     collapsed: boolean,
@@ -59,15 +61,19 @@ export default class App extends Component<Prop, State> {
                             this.state.contentList ? 
                                 this.state.contentList.map((contentItem: MenuContentItem) => {
                                     return (
-                                        <div key={contentItem.link}>
-                                            <span>{contentItem.text}</span>
-                                            <span>{contentItem.icon}</span>
-                                            <span>{contentItem.link}</span>
-                                            <span>{contentItem.info}</span>
-                                        </div>
+                                        <MenuCard
+                                            key={contentItem.link}
+                                            text={contentItem.text}
+                                            icon={contentItem.icon}
+                                            link={contentItem.link}
+                                            info={contentItem.info}
+                                        />
                                     )
                                 }) : 
                                 '暂无数据'
+                        }
+                        {
+                            router()
                         }
                     </Content>
                 </Layout>

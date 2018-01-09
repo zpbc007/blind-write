@@ -12,10 +12,10 @@ export interface MenuContentItemList {
 export const MenuContentList: MenuContentItemList = {
     '1': [
         {
-            text: 'Counter',
+            text: 'home',
             info: '测试',
             icon: 'upload',
-            link: '/counter'
+            link: '/home'
         }
     ]
 }
