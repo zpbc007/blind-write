@@ -1,23 +1,17 @@
 import React, { Component } from 'react'
 import { Menu, Icon } from 'antd' 
+import { Link } from 'react-router-dom'
 
 import { LeftMenuItem, LeftMenu } from '@constant/LeftMenu'
+import { LayoutContentBaseDir } from '@route/router'
 
-import './SideMenu.css'
-import { ClickParam } from 'antd/lib/menu';
+import './index.css'
 
-export interface Props {
-    menuClick: (param: ClickParam) => void
-}
 export interface State {}
 /**
- * 点击菜单后执行click事件
+ * 点击菜单后改变路由
  */
-export default class SideMenu extends Component<Props, State> {
-
-    constructor (props: Props) {
-        super(props)
-    }
+export default class SideMenu extends Component<{}, State> {
 
     render () {
         return (
@@ -26,15 +20,16 @@ export default class SideMenu extends Component<Props, State> {
                 <Menu 
                     theme="dark" 
                     mode="inline"
-                    onClick={this.props.menuClick}
                 >
                     {LeftMenu.map((item: LeftMenuItem) => {
                             return (
                                 <Menu.Item 
                                     key={item.id}
                                 >
-                                    <Icon type={item.icon}/>
-                                    <span>{item.text}</span>
+                                    <Link to={`${LayoutContentBaseDir}/${item.id}`}>
+                                        <Icon type={item.icon}/>
+                                        <span>{item.text}</span>   
+                                    </Link>
                                 </Menu.Item>
                             )
                         }
