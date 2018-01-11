@@ -1,5 +1,5 @@
 export interface MenuContentItem {
-    text: string,
+    title: string,
     info: string,
     icon: string,
     link: string
@@ -12,7 +12,7 @@ export interface MenuContentItemList {
 export const MenuContentList: MenuContentItemList = {
     '1': [
         {
-            text: 'home',
+            title: 'home',
             info: '测试',
             icon: 'upload',
             link: '/home'
@@ -20,10 +20,34 @@ export const MenuContentList: MenuContentItemList = {
     ],
     'test': [
         {
-            text: '测试1',
+            title: '测试1',
             info: '测试router',
             icon: 'code',
             link: '/test1'
+        },
+        {
+            title: '测试2',
+            info: '测试router2',
+            icon: 'code',
+            link: '/test2'
+        },
+        {
+            title: '测试3',
+            info: '测试router3',
+            icon: 'code',
+            link: '/test3'
+        },
+        {
+            title: '测试4',
+            info: '测试router4',
+            icon: 'code',
+            link: '/test4'
+        },
+        {
+            title: '测试5',
+            info: '测试router',
+            icon: 'code',
+            link: '/test5'
         }
     ]
 }

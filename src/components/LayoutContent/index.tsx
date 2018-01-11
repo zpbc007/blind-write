@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import router from 'react-router'
 import { Layout } from 'antd'
-const { Header, Sider, Content} = Layout
-import './index.css'
-
 import SideMenu from '@components/SideMenu/index'
 import { Routes, SubRouterView } from '@src/router'
+import './index.css'
+
+const { Header, Sider, Content, Footer } = Layout
 
 export interface Prop {
     match: router.match<{id: string}>
@@ -45,13 +45,16 @@ export default class LayoutContent extends Component<Prop, State> {
                     <SideMenu/>
                 </Sider>
                 {/* 右侧内容区域 */}
-                <Layout>
+                <Layout className="right-container">
                     <Header style={{ background: '#fff', padding: 0 }}/>
-                    <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                    <Content className="content-container" >
                         <div className="component-container">
                             <SubRouterView routes={...this.props.routes} />
                         </div>
                     </Content>
+                    <Footer>
+                        123
+                    </Footer>
                 </Layout>
             </Layout>
         )

@@ -1,3 +1,14 @@
 .card-container {
     text-align: center;
 }
+.right-container {
+    overflow-x: auto;
+}
+.content-container {
+    margin: 24px 16px; 
+    padding: 24px;
+    background: #fff;
+    min-height: 280px;
+    min-width: 1000px;
+    overflow-y: auto;
+}
