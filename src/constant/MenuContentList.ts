@@ -17,5 +17,17 @@ export const MenuContentList: MenuContentItemList = {
             icon: 'upload',
             link: '/home'
         }
+    ],
+    'test': [
+        {
+            text: '测试1',
+            info: '测试router',
+            icon: 'code',
+            link: '/test1'
+        }
     ]
+}
+
+export function generateLink (item: MenuContentItem, currentUrl: string): string {
+    return currentUrl.slice(0, currentUrl.lastIndexOf('/')) + item.link
 }

@@ -8,17 +8,28 @@ import Loading from '@components/Loading/index'
 type AnsycComponent =  React.ComponentClass<any> | React.StatelessComponent<any>
 
 // 异步组件
+// 登录
 const Login = Loadable({
-    loader: () => import('@page/Login'),
+    loader: () => import('@route/Login'),
     loading: Loading
 })
+// 404
 const NotFound = Loadable({
-    loader: () => import('@page/404NotFound'),
+    loader: () => import('@route/404NotFound'),
     loading: Loading
 })
 //  组件容器
 const LayoutContent = Loadable({
     loader: () => import('@components/LayoutContent/index'),
+    loading: Loading
+})
+// card list
+const CardList = Loadable({
+    loader: () => import('@components/MenuCard/container'),
+    loading: Loading
+})
+const Test1 = Loadable({
+    loader: () => import('@route/TestPage1'),
     loading: Loading
 })
 
@@ -45,27 +56,26 @@ export const RouteWithSubRoutes = (route: RouteItem) => (
     />
 )
 
-export const LayoutContentBaseDir = '/layoutContent'
 // 路由配置
 const routes: Routes = [
     {
-        path: '/',
+        path: '/Login',
         component: Login,
         exact: true
     },
     {
-        path: `${LayoutContentBaseDir}/:id`,
+        path: '/layoutContent/:id',
         component: LayoutContent,
         exact: false,
         routes: [
             {
-                path: `${LayoutContentBaseDir}/:id/list`,
-                component: Login,
+                path: '/layoutContent/:id/cardList',
+                component: CardList,
                 exact: true
             },
             {
-                path: `${LayoutContentBaseDir}/:id/home`,
-                component: Login,
+                path: '/layoutContent/:id/test1',
+                component: Test1,
                 exact: true
             }
         ]

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Icon } from 'antd' 
 import { Link } from 'react-router-dom'
 
-import { LeftMenuItem, LeftMenu } from '@constant/LeftMenu'
-import { LayoutContentBaseDir } from '@route/router'
+import { getMenuData } from '@constant/LeftMenu'
 
 import './index.css'
 
@@ -21,14 +20,14 @@ export default class SideMenu extends Component<{}, State> {
                     theme="dark" 
                     mode="inline"
                 >
-                    {LeftMenu.map((item: LeftMenuItem) => {
+                    {getMenuData().map((item) => {
                             return (
                                 <Menu.Item 
                                     key={item.id}
                                 >
-                                    <Link to={`${LayoutContentBaseDir}/${item.id}`}>
+                                    <Link to={`${item.path}`}>
                                         <Icon type={item.icon}/>
-                                        <span>{item.text}</span>   
+                                        <span>{item.name}</span>   
                                     </Link>
                                 </Menu.Item>
                             )

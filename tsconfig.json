@@ -20,8 +20,8 @@
     "paths": {
         "@components/*": ["src/components/*"],
         "@constant/*": ["src/constant/*"],
-        "@page/*": ["src/page/*"],
-        "@route/*": ["src/route/*"]
+        "@route/*": ["src/route/*"],
+        "@src/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true   
   },
