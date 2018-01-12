@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import { Menu, Icon } from 'antd' 
 import { Link } from 'react-router-dom'
-
 import { getMenuData } from '@constant/LeftMenu'
-
 import './index.css'
 
-export interface State {}
 /**
  * 点击菜单后改变路由
  */
-export default class SideMenu extends Component<{}, State> {
-
+export default class SideMenu extends Component {
     render () {
         return (
             <div>
-                <div className="logo" />
+                <div className="logo">
+                    <Icon type="apple-o" className="icon" />
+                    <h1>=。=</h1>
+                </div>
                 <Menu 
                     theme="dark" 
                     mode="inline"

@@ -41,7 +41,9 @@ interface RouteItem {
     component: AnsycComponent
     // 子路由
     routes?: RouteItem[]
-    exact?: boolean
+    exact?: boolean,
+    // title
+    name?: string
 }
 
 // 根据配置生成路由
@@ -61,7 +63,8 @@ const routes: Routes = [
     {
         path: '/Login',
         component: Login,
-        exact: true
+        exact: true,
+        name: '登录'
     },
     {
         path: '/layoutContent/:id',
@@ -76,7 +79,8 @@ const routes: Routes = [
             {
                 path: '/layoutContent/:id/test1',
                 component: Test1,
-                exact: true
+                exact: true,
+                name: '测试'
             }
         ]
     },

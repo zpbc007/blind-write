@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-document-title": "^2.0.1",
     "antd": "^3.0.3",
     "mockjs": "^1.0.1-beta3",
     "react": "^16.2.0",
+    "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
     "react-loadable": "^5.3.1",
     "react-router-dom": "^4.2.2",

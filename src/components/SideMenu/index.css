@@ -2,4 +2,17 @@
     height: 32px;
     background: rgba(255,255,255,.2);
     margin: 16px;
+    text-align: center;
+    overflow: hidden;
+}
+.logo h1 {
+    color: #fff;
+    font-size: 20px;
+    line-height: 32px;
+    display: inline-block;
+}
+.logo .icon {
+    font-size: 20px;
+    color: #fff;
+    line-height: 32px;
 }
