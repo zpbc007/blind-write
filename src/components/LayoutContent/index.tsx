@@ -47,7 +47,6 @@ export default class LayoutContent extends Component<Prop, State> {
     }
 
     render () {
-        debugger
         return (
             <Layout style={{minHeight: '100vh'}}>
                 {/* 左侧菜单栏 */}
