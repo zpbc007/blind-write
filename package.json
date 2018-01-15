@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/react-document-title": "^2.0.1",
     "antd": "^3.0.3",
+    "express": "^4.16.2",
     "mockjs": "^1.0.1-beta3",
     "react": "^16.2.0",
     "react-document-title": "^2.0.3",

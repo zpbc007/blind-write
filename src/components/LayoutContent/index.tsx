@@ -41,7 +41,13 @@ export default class LayoutContent extends Component<Prop, State> {
     // 获取页面title
     getTitle () {
         // let { location, routes } = this.props
-        // routes.filter(item => )
+        // let path = location.pathname
+        // routes.filter(item => {
+        //     let reg = new RegExp(/\/:\w+\//)
+        //     if (reg.exec(item.path) !== null) {
+
+        //     }
+        // })
         let title = '无他，唯手熟尔'
         return title
     }

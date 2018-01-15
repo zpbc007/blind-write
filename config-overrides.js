@@ -4,6 +4,8 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const path = require('path')
 
 module.exports = function (config, env) {
+
+    // add tsloader
     const tsLoader = getLoader(
         config.module.rules,
         rule => 
@@ -11,7 +13,6 @@ module.exports = function (config, env) {
             typeof rule.loader === 'string' &&
             rule.loader.includes('ts-loader')
     )
-
     tsLoader.options = {
         getCustomTransformers: () => ({
             before: [tsImportPluginFactory({
@@ -22,9 +23,11 @@ module.exports = function (config, env) {
         })
     }
 
+    // add TsconfigPathsPlugin to use alias
     config.resolve.plugins = [new TsconfigPathsPlugin({
         configFile: path.resolve(__dirname, './tsconfig.json')
     })]
 
+    // return 
     return config
 }

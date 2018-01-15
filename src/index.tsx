@@ -4,7 +4,6 @@ import App from '@components/App/App'
 import { BrowserRouter as Router } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
-import './mock/mock'
 
 ReactDOM.render(
     <Router>
