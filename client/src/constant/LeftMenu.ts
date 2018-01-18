@@ -7,7 +7,7 @@ export interface LeftMenuItem {
     readonly path: string,
     // 显示图标
     readonly icon: string,
-    // 子菜单
+    // todo 子菜单 暂不支持 
     readonly children?: LeftMenuItem[]
 }
 // 左侧menu配置
@@ -16,15 +16,7 @@ export const LeftMenu: Array<LeftMenuItem> =  [
             id: 'sport',
             name: '运动',
             path: 'sport',
-            icon: '',
-            children: [
-                {
-                    id: '',
-                    name: '',
-                    path: '',
-                    icon: ''
-                }
-            ]
+            icon: 'schedule',
         },
         {
             id: 'chart',

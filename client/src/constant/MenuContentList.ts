@@ -10,26 +10,18 @@ export interface MenuContentItemList {
 }
 
 export const MenuContentList: MenuContentItemList = {
-    '1': [
-        {
-            title: 'home',
-            info: '测试',
-            icon: 'upload',
-            link: '/home'
-        }
-    ],
     'test': [
         {
-            title: '测试1',
-            info: '测试router',
-            icon: 'code',
-            link: '/test1'
+            title: '计时器',
+            info: '通过按钮开始暂停的计时器',
+            icon: 'clock-circle-o',
+            link: '/timerTest'
         },
         {
             title: '测试2',
-            info: '测试router2',
-            icon: 'code',
-            link: '/test2'
+            info: '通过一个按钮控制两个定时器的启动与停止',
+            icon: 'clock-circle-o',
+            link: '/twoTimersTest'
         },
         {
             title: '测试3',

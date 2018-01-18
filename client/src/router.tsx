@@ -28,8 +28,14 @@ const CardList = Loadable({
     loader: () => import('@components/MenuCard/container'),
     loading: Loading
 })
-const Test1 = Loadable({
-    loader: () => import('@route/TestPage1'),
+// 定时器
+const Timer = Loadable({
+    loader: () => import('@components/Timer/index'),
+    loading: Loading
+})
+// 定时器x2
+const TwoTimers = Loadable({
+    loader: () => import('@components/Timer/TwoTimers/index'),
     loading: Loading
 })
 
@@ -72,15 +78,24 @@ const routes: Routes = [
         exact: false,
         routes: [
             {
+                // 右侧列表页面
                 path: '/layoutContent/:id/cardList',
                 component: CardList,
                 exact: true
             },
             {
-                path: '/layoutContent/:id/test1',
-                component: Test1,
+                // 计时器
+                path: '/layoutContent/:id/timerTest',
+                component: Timer,
                 exact: true,
-                name: '测试'
+                name: '定时器'
+            },
+            {
+                // 计时器
+                path: '/layoutContent/:id/twoTimersTest',
+                component: TwoTimers,
+                exact: true,
+                name: '两个定时器'
             }
         ]
     },
