@@ -16,6 +16,7 @@
 - [x] node中ts里面的paths问题 
 - [x] MongoDB未引入
 - [ ] session
+- [ ] 权限控制
 
 ## db
 

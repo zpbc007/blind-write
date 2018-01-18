@@ -13,6 +13,20 @@ export interface LeftMenuItem {
 // 左侧menu配置
 export const LeftMenu: Array<LeftMenuItem> =  [
         {
+            id: 'sport',
+            name: '运动',
+            path: 'sport',
+            icon: '',
+            children: [
+                {
+                    id: '',
+                    name: '',
+                    path: '',
+                    icon: ''
+                }
+            ]
+        },
+        {
             id: 'chart',
             name: '可视化',
             path: 'visualization',
