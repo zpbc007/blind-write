@@ -8,7 +8,7 @@
     "build": "rm -rf ./dist && tsc && cp tsconfig.json ./dist",
     "dev": "npm run watch-node & npm run watch-build",
     "watch-build": "tsc --watch",
-    "watch-node": "nodemon ./dist/src/config/server.js",
+    "watch-node": "cd dist && nodemon -r tsconfig-paths/register ./src/config/server.js",
     "start": "cd dist && node -r tsconfig-paths/register ./src/config/server.js"
   },
   "author": "zhaopeng",
