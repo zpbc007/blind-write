@@ -9,11 +9,15 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/server/src/config/server.ts",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/server",
             "outFiles": [
                 "${workspaceFolder}/server/dist/**/*.js"
             ],
-            "sourceMaps": true
+            "sourceMaps": true,
+            // "runtimeArgs": [
+            //     "-r",
+            //     "tsconfig-paths/register"
+            // ]
         }
     ]
 }

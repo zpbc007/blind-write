@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "dist/src",
     "module": "commonjs",
     "target": "es6",
     "lib": ["es6"],
@@ -15,7 +15,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "baseUrl": "./",          
+    "baseUrl": ".",          
     "paths": {
         "@routes/*": ["src/routes/*"],
         "@src/*": ["src/*"],
