@@ -4,12 +4,14 @@
 
 ## client
 
-- [ ] config-overrides想引入css框架未成功
+- [x] config-overrides想引入css框架未成功 之前未成功原因：
+    oneOf中的fileLoader 的exclude选项未加入.less .stylus
 - [ ] 登录页
-- [ ] 秒表 计时器 插件
+- [x] 秒表 计时器 组件
 - [ ] 数据输入页
 - [ ] 图表配置页
 - [ ] 图表页
+- [ ] react-redux
 
 ## server
 
