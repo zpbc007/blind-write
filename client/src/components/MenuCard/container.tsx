@@ -3,7 +3,7 @@ import router from 'react-router'
 import { MenuContentList, MenuContentItem } from '@constant/MenuContentList'
 import MenuCard from '@components/MenuCard/index'
 import { Row, Col } from 'antd'
-import './container.css'
+import './container.less'
 
 interface Props {
     match: router.match<{id: string}>
@@ -63,6 +63,7 @@ export default class Container extends React.Component<Props, State> {
                                     return (
                                         <Col span={6} key={`${rowNum}-${colNum}`}>
                                             <MenuCard
+                                                style={{color: 'red'}}
                                                 key={contentItem.link}
                                                 contentItem={contentItem}
                                                 url={this.props.match.url}

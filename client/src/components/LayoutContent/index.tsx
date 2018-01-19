@@ -5,7 +5,7 @@ import { Layout, Icon } from 'antd'
 import SideMenu from '@components/SideMenu/index'
 import { Routes, SubRouterView } from '@src/router'
 import DocumentTitle from 'react-document-title'
-import './index.css'
+import './index.less'
 
 const { Header, Sider, Content, Footer } = Layout
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Icon } from 'antd' 
 import { Link } from 'react-router-dom'
 import { getMenuData } from '@constant/LeftMenu'
-import './index.css'
+import './index.less'
 
 /**
  * 点击菜单后改变路由

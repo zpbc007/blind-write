@@ -18,7 +18,7 @@ module.exports = function (config, env) {
             before: [tsImportPluginFactory({
                 libraryName: 'antd',
                 libraryDirectory: 'es',
-                style: 'css'
+                style: true
             })]
         })
     }
@@ -28,6 +28,25 @@ module.exports = function (config, env) {
         configFile: path.resolve(__dirname, './tsconfig.json')
     })]
 
+    // add less
+    config.module.rules.unshift({
+        test: /\.less$/,
+        use: [
+            {loader: 'style-loader'},
+            {loader: 'css-loader'},
+            {loader: 'less-loader'}
+        ]
+    })
+    // 真尼玛费劲
+    config.module.rules.forEach(item => {
+        if (item.oneOf) {
+            item.oneOf.forEach(one => {
+                if (one.exclude) {
+                    one.exclude.push(/.less$/)
+                }
+            }) 
+        }
+    })
     // return 
     return config
 }

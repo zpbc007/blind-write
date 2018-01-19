@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import App from '@components/App/App'
 import { BrowserRouter as Router } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker'
-import './index.css'
+import './index.less'
 
 ReactDOM.render(
     <Router>

@@ -6,11 +6,12 @@ import { generateLink } from '@constant/MenuContentList'
 import { Card, Icon, Row, Col } from 'antd'
 const { Meta } = Card
 
-import './index.css'
+import './index.less'
 
 interface Prop {
     url: string,
-    contentItem: MenuContentItem
+    contentItem: MenuContentItem,
+    style?: React.CSSProperties
 }
 
 export default class MenuCard extends React.Component<Prop, {}> {

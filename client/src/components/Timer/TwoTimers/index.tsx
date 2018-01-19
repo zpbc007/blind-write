@@ -1,6 +1,8 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, Icon, Tooltip } from 'antd'
 import Timer from '../index'
+
+import './index.less'
 
 interface Props {
 
@@ -9,6 +11,12 @@ interface Props {
 enum TimerType {
     MoveTimer,
     BreakTimer
+}
+
+const styles = {
+    timerStyle: {
+        fontSize: 20
+    }
 }
 
 interface State {
@@ -33,12 +41,27 @@ interface State {
 
 export default class TwoTimers extends React.Component<Props, State> {
     
-    private message = {
-        start: '开始计时',
-        move: '运动',
-        break: '休息',
-        pause: '暂停',
-        continue: '继续'
+    private info = {
+        start: {
+            message: '开始',
+            icon: 'play-circle-o'
+        },
+        move: {
+            message: '运动',
+            icon: 'heart-o'
+        },
+        break: {
+            message: '休息',
+            icon: 'coffee'
+        },
+        pause: {
+            message: '暂停',
+            icon: 'pause-circle-o'
+        },
+        continue: {
+            message: '继续',
+            icon: 'play-circle-o'
+        }
     }
 
     private initState: State = {
@@ -118,37 +141,82 @@ export default class TwoTimers extends React.Component<Props, State> {
             resetBreakTimer: !this.state.resetBreakTimer
         })
     }
-
+    getStartBtnInfo () {
+        return this.state.init ? this.info.start : (this.state.moveStart ? this.info.break : this.info.move)
+    }
+    getPauseBtnInfo () {
+        return this.state.pause ? this.info.continue : this.info.pause
+    }
     render () {
         return (
-            <div>
-                <Timer 
-                    start={this.state.moveStart} 
-                    getCount={this.getMoveCount} 
-                    reset={this.state.resetMoveTimer}
-                />
-                <Timer 
-                    start={this.state.breakStart} 
-                    getCount={this.getBreakCount}
-                    reset={this.state.resetBreakTimer}
-                />
-                <Button 
-                    onClick={this.changeTimer}
-                    disabled={this.state.pause}
-                >
-                    {this.state.init ? 
-                        this.message.start : 
-                        (this.state.moveStart ? this.message.break : this.message.move)}
-                </Button>
-                <Button 
-                    onClick={this.pauseTimer}
-                    disabled={this.state.init}
-                >
-                    {this.state.pause ? this.message.continue : this.message.pause}
-                </Button>
-                <Button onClick={this.resetTimer}>
-                    重置
-                </Button>
+            <div className="timers-container">
+                <div className="timer-container">
+                    <Timer 
+                        style={styles.timerStyle}
+                        start={this.state.moveStart} 
+                        getCount={this.getMoveCount} 
+                        reset={this.state.resetMoveTimer}
+                        title="运动时间"
+                    />
+                    <Timer 
+                        style={styles.timerStyle}
+                        start={this.state.breakStart} 
+                        getCount={this.getBreakCount}
+                        reset={this.state.resetBreakTimer}
+                        title="休息时间"
+                    />
+                </div>
+                <div className="button-group">
+                    <Tooltip 
+                        title={this.getStartBtnInfo().message}
+                        placement="bottom"
+                        autoAdjustOverflow={true}
+                    >
+                        <Button
+                            type="primary" 
+                            shape="circle"
+                            size="large"
+                            onClick={this.changeTimer}
+                            disabled={this.state.pause}
+                        >
+                            <Icon 
+                                type={this.getStartBtnInfo().icon} 
+                            />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip 
+                        title={this.getPauseBtnInfo().message}
+                        placement="bottom"
+                        autoAdjustOverflow={true}
+                    >
+                        <Button 
+                            shape="circle"
+                            size="large"                    
+                            onClick={this.pauseTimer}
+                            disabled={this.state.init}
+                        >
+                            <Icon 
+                                type={this.getPauseBtnInfo().icon}
+                            />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip 
+                        title="重置"
+                        placement="bottom"
+                        autoAdjustOverflow={true}
+                    >
+                        <Button 
+                            shape="circle"
+                            size="large"                    
+                            onClick={this.resetTimer}
+                            type="danger"
+                        >
+                            <Icon 
+                                type="reload"
+                            />
+                        </Button>
+                    </Tooltip>
+                </div>
             </div>
         )
     }
