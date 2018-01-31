@@ -38,6 +38,11 @@ const TwoTimers = Loadable({
     loader: () => import('@components/Timer/TwoTimers/index'),
     loading: Loading
 })
+// sportRecord页面
+const SportRecord = Loadable({
+    loader: () => import('@pages/sport/record'),
+    loading: Loading
+})
 
 // 路由类型
 interface RouteItem {
@@ -81,6 +86,11 @@ const routes: Routes = [
                 // 右侧列表页面
                 path: '/layoutContent/:id/cardList',
                 component: CardList,
+                exact: true
+            },
+            {
+                path: '/layoutContent/:id/recordData',
+                component: SportRecord,
                 exact: true
             },
             {

@@ -33,14 +33,20 @@ export default class Timer extends React.Component<Props, State> {
         this.tick = this.tick.bind(this)
         this.fixZero = this.fixZero.bind(this)
         this.defaultFormat = this.defaultFormat.bind(this)
+        this.emitCount = this.emitCount.bind(this)
     }
     componentWillReceiveProps (props: Props) {
         // 重置 清空定时器 清空计数器
         if (props.reset !== this.props.reset) {
             this.stopTick()
-            this.setState({
-                secondCount: 0
-            })
+            this.setState(
+                {
+                    secondCount: 0
+                }, 
+                () => {
+                    this.emitCount()
+                }
+            )
             return 
         }
         if (props.start !== this.props.start) {
@@ -48,6 +54,7 @@ export default class Timer extends React.Component<Props, State> {
                 this.startTick()
             } else {
                 this.stopTick()
+                this.emitCount()
             }
         }
     }
@@ -67,7 +74,9 @@ export default class Timer extends React.Component<Props, State> {
             ...this.state,
             interval: null
         })
-        // 每次停止计数时更新count
+    }
+    // 更新count
+    emitCount() {
         if (this.props.getCount) {
             this.props.getCount(this.state.secondCount)
         }

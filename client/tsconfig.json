@@ -21,6 +21,7 @@
         "@components/*": ["src/components/*"],
         "@constant/*": ["src/constant/*"],
         "@route/*": ["src/route/*"],
+        "@pages/*": ["src/pages/*"],
         "@src/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true   

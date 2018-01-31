@@ -5,7 +5,8 @@ import Timer from '../index'
 import './index.less'
 
 interface Props {
-
+    moveSecondChange?: (second: number) => any,
+    breakSecondChange?: (second: number) => any
 }
 
 enum TimerType {
@@ -29,10 +30,6 @@ interface State {
     // 暂停标志位
     pause: boolean,
     pauseTimer?: TimerType,
-    // 运动时间
-    moveCount: number,
-    // 休息时间
-    breakCount: number,
     // move 定时器重置标志位
     resetMoveTimer: boolean,
     // break 定时器重置标志位
@@ -69,8 +66,6 @@ export default class TwoTimers extends React.Component<Props, State> {
         breakStart: false,
         init: true,
         pause: false,
-        moveCount: 0,
-        breakCount: 0,
         resetMoveTimer: false,
         resetBreakTimer: false
     }
@@ -102,14 +97,14 @@ export default class TwoTimers extends React.Component<Props, State> {
         }
     }
     getMoveCount (count: number) {
-        this.setState({
-            moveCount: count
-        })
+        if (this.props.moveSecondChange) {
+            this.props.moveSecondChange(count)
+        }
     }
     getBreakCount (count: number) {
-        this.setState({
-            breakCount: count
-        })
+        if (this.props.breakSecondChange) {
+            this.props.breakSecondChange(count)
+        }
     }
     pauseTimer () {
         if (this.state.pause) {

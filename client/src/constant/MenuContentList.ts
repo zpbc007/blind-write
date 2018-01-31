@@ -10,6 +10,14 @@ export interface MenuContentItemList {
 }
 
 export const MenuContentList: MenuContentItemList = {
+    'sport': [
+        {
+            title: '记录',
+            info: '记录运动数据',
+            icon: 'database',
+            link: '/recordData'
+        }
+    ],
     'test': [
         {
             title: '计时器',
