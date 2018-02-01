@@ -26,30 +26,6 @@ enum RunTimeStatus {
     // 停止（初始状态）
     Stop
 }
-// interface FormProps {
-//     onChange: (fields: number[]) => any
-// }
-// const IntervalTimeForm = Form.create<FormProps>({
-//     onFieldsChange(props: FormProps, changedFields: number[]) {
-//         props.onChange(changedFields)
-//     }
-// })((props) => {
-//     const { getFieldDecorator } = props.form
-//     return (
-//         <Form>
-//             <Form.Item label="时间间隔">
-//                 {getFieldDecorator('interval')(
-//                     <InputNumber
-//                         min={0.1}
-//                         // formatter={value => `${value}s`}
-//                         // parser={value => value ? Number(value.replace('/s\b/', '')) : 0}
-//                         step={0.5}
-//                     />
-//                 )}
-//             </Form.Item>
-//         </Form>
-//     )
-// })
 interface State {
     option: BarOptionType,
     data: BarDataType,
@@ -271,13 +247,8 @@ export default class AlgorithmChart extends React.Component<{}, State> {
                         <Icon type="reload"/>
                     </Button>
                 </Button.Group>
-                {/* <IntervalTimeForm
-                    onChange={this.intervalTimeChange}
-                /> */}
                 <InputNumber
                     min={0.1}
-                    // formatter={value => `${value}s`}
-                    // parser={value => value ? Number(value.replace('/s\b/', '')) : 0}
                     defaultValue={this.state.interval}
                     step={0.5}
                     onChange={this.intervalChange}
