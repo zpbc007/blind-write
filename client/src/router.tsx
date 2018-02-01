@@ -43,6 +43,10 @@ const SportRecord = Loadable({
     loader: () => import('@pages/sport/record'),
     loading: Loading
 })
+const Chart = Loadable({
+    loader: () => import('@pages/algorithmChart/algorithmChart'),
+    loading: Loading
+})
 
 // 路由类型
 interface RouteItem {
@@ -89,6 +93,7 @@ const routes: Routes = [
                 exact: true
             },
             {
+                // 运动记录页面
                 path: '/layoutContent/:id/recordData',
                 component: SportRecord,
                 exact: true
@@ -106,7 +111,13 @@ const routes: Routes = [
                 component: TwoTimers,
                 exact: true,
                 name: '两个定时器'
-            }
+            },
+            {
+                // 运动记录页面
+                path: '/layoutContent/:id/chart',
+                component: Chart,
+                exact: true
+            },
         ]
     },
     {

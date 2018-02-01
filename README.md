@@ -14,6 +14,7 @@
 - [x] react-redux
 - [ ] 运动记录 每组时长 图表统计
 - [ ] 算法可视化 
+- [ ] 引入echarts
 
 ## server
 

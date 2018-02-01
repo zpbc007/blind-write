@@ -22,7 +22,8 @@
         "@constant/*": ["src/constant/*"],
         "@route/*": ["src/route/*"],
         "@pages/*": ["src/pages/*"],
-        "@src/*": ["src/*"]
+        "@src/*": ["src/*"],
+        "@utils/*": ["src/utils/*"]
     },
     "allowSyntheticDefaultImports": true   
   },
