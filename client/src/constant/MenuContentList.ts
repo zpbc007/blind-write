@@ -18,6 +18,14 @@ export const MenuContentList: MenuContentItemList = {
             link: '/recordData'
         }
     ],
+    'algorithm': [
+        {
+            title: '排序',
+            info: '冒泡排序',
+            icon: 'dot-chart',
+            link: '/bubbleSort'
+        }
+    ],
     'test': [
         {
             title: '计时器',
@@ -30,12 +38,6 @@ export const MenuContentList: MenuContentItemList = {
             info: '通过一个按钮控制两个定时器的启动与停止',
             icon: 'clock-circle-o',
             link: '/twoTimersTest'
-        },
-        {
-            title: '图表',
-            info: '引入echarts',
-            icon: 'dot-chart',
-            link: '/chart'
         }
     ]
 }

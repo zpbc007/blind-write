@@ -43,8 +43,8 @@ const SportRecord = Loadable({
     loader: () => import('@pages/sport/record'),
     loading: Loading
 })
-const Chart = Loadable({
-    loader: () => import('@pages/algorithmChart/algorithmChart'),
+const BubbleSort = Loadable({
+    loader: () => import('@pages/algorithmChart/bubbleSort'),
     loading: Loading
 })
 
@@ -58,7 +58,7 @@ interface RouteItem {
     routes?: RouteItem[]
     exact?: boolean,
     // title
-    name?: string
+    title?: string
 }
 
 // 根据配置生成路由
@@ -79,7 +79,7 @@ const routes: Routes = [
         path: '/Login',
         component: Login,
         exact: true,
-        name: '登录'
+        title: '登录'
     },
     {
         path: '/layoutContent/:id',
@@ -93,30 +93,28 @@ const routes: Routes = [
                 exact: true
             },
             {
-                // 运动记录页面
                 path: '/layoutContent/:id/recordData',
                 component: SportRecord,
-                exact: true
+                exact: true,
+                title: '运动记录'
             },
             {
-                // 计时器
                 path: '/layoutContent/:id/timerTest',
                 component: Timer,
                 exact: true,
-                name: '定时器'
+                title: '定时器'
             },
             {
-                // 计时器
                 path: '/layoutContent/:id/twoTimersTest',
                 component: TwoTimers,
                 exact: true,
-                name: '两个定时器'
+                title: '两个定时器'
             },
             {
-                // 运动记录页面
-                path: '/layoutContent/:id/chart',
-                component: Chart,
-                exact: true
+                path: '/layoutContent/:id/bubbleSort',
+                component: BubbleSort,
+                exact: true,
+                title: '冒泡排序'
             },
         ]
     },

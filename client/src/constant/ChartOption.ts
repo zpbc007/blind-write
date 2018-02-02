@@ -32,6 +32,12 @@ export const BarOption = {
             data: [1],
             itemStyle: {
                 color: (param: any) => '123'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top'
+                }
             } 
         }
     ]  

@@ -35,7 +35,7 @@ interface State {
 }
 
 // 冒泡排序
-export default class AlgorithmChart extends React.Component<{}, State> {
+export default class BubbleSort extends React.Component<{}, State> {
     timer: NodeJS.Timer
     constructor(props: {}) {
         super(props)
