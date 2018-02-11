@@ -43,8 +43,8 @@ const SportRecord = Loadable({
     loader: () => import('@pages/sport/record'),
     loading: Loading
 })
-const BubbleSort = Loadable({
-    loader: () => import('@pages/algorithmChart/bubbleSort'),
+const AlgorithmBarChart = Loadable({
+    loader: () => import('@pages/algorithmChart/algorithmBarChart'),
     loading: Loading
 })
 
@@ -111,10 +111,10 @@ const routes: Routes = [
                 title: '两个定时器'
             },
             {
-                path: '/layoutContent/:id/bubbleSort',
-                component: BubbleSort,
+                path: '/layoutContent/:id/sort/:type',
+                component: AlgorithmBarChart,
                 exact: true,
-                title: '冒泡排序'
+                title: '排序'
             },
         ]
     },
@@ -156,4 +156,13 @@ export class SubRouterView extends React.Component<Prop> {
             </div>
         )
     }
+}
+// 排序算法类型
+export enum SortType {
+    bubble = 'bubble',
+    select = 'select'
+}
+export interface Params {
+    id: string,
+    type: SortType
 }

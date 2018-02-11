@@ -1,54 +1,69 @@
 import React from 'react'
+import { match } from 'react-router-dom'
 import { Button, Icon, InputNumber } from 'antd'
+import { SortType, Params } from '@src/router'
 import Chart from '@components/Chart/index'
-import { BarOption, BarData, BarDataType, BarOptionType } from '@constant/ChartOption'
+import { 
+    BarOption, 
+    BarData, 
+    BarDataType, 
+    BarOptionType,
+    ColorMap,
+    Status,
+    RunTimeStatus
+} from '@constant/ChartConstant'
 import { deepCopy } from '@utils/utils'
+// 排序算法
+import bubbleSort from './bubbleSort'
+import selectSort from './selectSort'
 
-const ColorMap = {
-    gray: '#99A3A4',
-    green: '#58D68D',
-    blue: '#3498DB',
-    red: '#CD6155'
-}
-enum Status {
-    Init,
-    Orderd,
-    Current,
-    Operate
-} 
-enum RunTimeStatus {
-    // 定时运行
-    Run,
-    // 单步运行
-    Step,
-    // 暂停
-    Pause,
-    // 停止（初始状态）
-    Stop
+interface Props {
+    match: match<Params>
 }
 interface State {
     option: BarOptionType,
     data: BarDataType,
     iterator: IterableIterator<BarDataType | null> | null,
     runTimeStatus: RunTimeStatus,
-    interval: number
+    interval: number,
+    sortFunction: (
+        data: BarDataType,
+        currentColor: string,
+        operateColor: string,
+        restColor: (data: BarDataType) => string[]
+    ) => IterableIterator<{
+        dataList: number[];
+        colorList: string[];
+        xAxisData: string[];
+    }>
 }
 
-// 冒泡排序
-export default class BubbleSort extends React.Component<{}, State> {
+// 算法排序柱状图
+export default class AlgorithmBarChart extends React.Component<Props, State> {
     timer: NodeJS.Timer
-    constructor(props: {}) {
+    constructor(props: Props) {
         super(props)
+
+        let sortFunction = null
+        switch (props.match.params.type) {
+            case SortType.bubble: 
+                sortFunction = bubbleSort
+                break
+            case SortType.select:
+                sortFunction = selectSort
+                break
+            default: 
+                throw new Error(`不支持的排序方法：${props.match.params.type}`)
+        }
 
         this.state = {
             option: BarOption,
             data: BarData,
             iterator: null,
             runTimeStatus: RunTimeStatus.Stop,
-            interval: 0.5
+            interval: 0.5,
+            sortFunction
         }
-
-        this.bubbleSort = this.bubbleSort.bind(this)
     }
     componentWillMount() {
         this.reset()
@@ -77,7 +92,11 @@ export default class BubbleSort extends React.Component<{}, State> {
         this.setState({
             data: resetAxisData,
             option: {...this.addDataToOption(BarOption, resetAxisData)},
-            iterator: this.bubbleSort(resetAxisData),
+            iterator: this.state.sortFunction(
+                resetAxisData, 
+                this.mapStatusToColor(Status.Current),
+                this.mapStatusToColor(Status.Operate), 
+                this.resetColor),
             runTimeStatus: RunTimeStatus.Stop
         })
     }
@@ -130,30 +149,8 @@ export default class BubbleSort extends React.Component<{}, State> {
                     </Button>
                 )
             default:
-                debugger
                 throw new Error(`当前运行状态不正确： ${this.state.runTimeStatus}`)
         }
-    }
-    // 排序方法
-    * bubbleSort(data: BarDataType) {
-        let {dataList, colorList, xAxisData} = data
-        for (let i = 0; i < dataList.length; i++) {
-            for (let j = 0; j < dataList.length - 1; j++) {
-                // 当前指针颜色
-                colorList[j] = this.mapStatusToColor(Status.Current)
-                yield {dataList, colorList, xAxisData}
-                if (data.dataList[j] > dataList[j + 1]) {
-                    colorList[j] = colorList[j + 1] = this.mapStatusToColor(Status.Operate)
-                    yield {dataList, colorList, xAxisData}
-                    
-                    this.exchange(dataList, j, j + 1)
-                    this.exchange(xAxisData, j, j + 1)
-                    yield {dataList, colorList, xAxisData}
-                }
-                colorList = this.setColor({dataList, colorList, xAxisData}).colorList
-            }
-        }
-        return null
     }
     // 清除定时器
     clearInterval = () => {
@@ -178,6 +175,7 @@ export default class BubbleSort extends React.Component<{}, State> {
         data.colorList = colorList
         return data
     }
+    resetColor = (data: BarDataType) => this.setColor(data).colorList
     // status与color映射关系
     mapStatusToColor = (status?: Status) => {
         switch (status) {
@@ -220,12 +218,6 @@ export default class BubbleSort extends React.Component<{}, State> {
         result.xAxis[0].data = data.xAxisData
 
         return result
-    }
-    // 交换数组元素位置
-    exchange = (arr: Array<any>, index1: number, index2: number) => {
-        let temp = arr[index1]
-        arr[index1] = arr[index2]
-        arr[index2] = temp
     }
     render() {
         const BarStyle = {width: '800px', height: '600px'}

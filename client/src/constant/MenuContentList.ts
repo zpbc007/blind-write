@@ -1,3 +1,4 @@
+import { SortType } from '@src/router'
 export interface MenuContentItem {
     title: string,
     info: string,
@@ -20,10 +21,16 @@ export const MenuContentList: MenuContentItemList = {
     ],
     'algorithm': [
         {
-            title: '排序',
+            title: '冒泡排序',
             info: '冒泡排序',
             icon: 'dot-chart',
-            link: '/bubbleSort'
+            link: `/sort/${SortType.bubble}`
+        },
+        {
+            title: '选择排序',
+            info: '选择排序',
+            icon: 'dot-chart',
+            link: `/sort/${SortType.select}`
         }
     ],
     'test': [
