@@ -31,6 +31,18 @@ export const MenuContentList: MenuContentItemList = {
             info: '选择排序',
             icon: 'dot-chart',
             link: `/sort/${SortType.select}`
+        },
+        {
+            title: '插入排序',
+            info: '插入排序',
+            icon: 'dot-chart',
+            link: `/sort/${SortType.insert}`
+        },
+        {
+            title: '希尔排序',
+            info: '希尔排序',
+            icon: 'dot-chart',
+            link: `/sort/${SortType.shell}`
         }
     ],
     'test': [

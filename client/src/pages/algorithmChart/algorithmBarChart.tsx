@@ -1,42 +1,75 @@
 import React from 'react'
 import { match } from 'react-router-dom'
-import { Button, Icon, InputNumber } from 'antd'
+import { Button, Icon, InputNumber, Input, Form } from 'antd'
 import { SortType, Params } from '@src/router'
 import Chart from '@components/Chart/index'
 import { 
     BarOption, 
     BarData, 
-    BarDataType, 
     BarOptionType,
-    ColorMap,
-    Status,
-    RunTimeStatus
+    RunTimeStatus,
+    SortMiddleType,
+    CreateAxisData,
+    ExchangePosition,
+    AddMiddleDataToOption
 } from '@constant/ChartConstant'
-import { deepCopy } from '@utils/utils'
+// import { deepCopy } from '@utils/utils'
 // 排序算法
 import bubbleSort from './bubbleSort'
 import selectSort from './selectSort'
+import insertSort from './insertSort'
+import shellSort from './shellSort'
 
 interface Props {
     match: match<Params>
 }
 interface State {
     option: BarOptionType,
-    data: BarDataType,
-    iterator: IterableIterator<BarDataType | null> | null,
+    data: number[],
+    axisData: string[],
+    iterator: IterableIterator<SortMiddleType> | null,
     runTimeStatus: RunTimeStatus,
     interval: number,
     sortFunction: (
-        data: BarDataType,
-        currentColor: string,
-        operateColor: string,
-        restColor: (data: BarDataType) => string[]
-    ) => IterableIterator<{
-        dataList: number[];
-        colorList: string[];
-        xAxisData: string[];
-    }>
+        data: number[], 
+        exchangePosition: (arr: number[], i: number, j: number) => void
+    ) => IterableIterator<SortMiddleType>
 }
+
+interface FormProps {
+    sortNum: number[],
+    setSortNum: (arr: number[]) => any,
+}
+
+const SortNumForm = Form.create<FormProps>({
+    mapPropsToFields(props: FormProps) {
+        return {
+            sortNum: Form.createFormField({
+                value: props.sortNum.join(',')
+            })
+        }
+    },
+    onFieldsChange (props: FormProps, value: any) {
+        props.setSortNum(value.sortNum.value.split(','))
+    }
+})((props) => {
+    const { getFieldDecorator } = props.form
+    const formItemLayout = {
+        labelCol: { span: 2 },
+        wrapperCol: { span: 16 }
+    }
+
+    return (
+        <Form>
+            <Form.Item
+                label="排序数组"
+                {...formItemLayout}
+            >
+                {getFieldDecorator('sortNum')(<Input />)}
+            </Form.Item>
+        </Form>
+    )
+})
 
 // 算法排序柱状图
 export default class AlgorithmBarChart extends React.Component<Props, State> {
@@ -45,20 +78,34 @@ export default class AlgorithmBarChart extends React.Component<Props, State> {
         super(props)
 
         let sortFunction = null
+        let sortData = []
         switch (props.match.params.type) {
             case SortType.bubble: 
                 sortFunction = bubbleSort
+                sortData = BarData.bubble
                 break
             case SortType.select:
                 sortFunction = selectSort
+                sortData = BarData.select
+                break
+            case SortType.insert:
+                sortFunction = insertSort
+                sortData = BarData.insert
+                break
+            case SortType.shell:
+                sortFunction = shellSort
+                sortData = BarData.shell
                 break
             default: 
                 throw new Error(`不支持的排序方法：${props.match.params.type}`)
         }
 
         this.state = {
+            // 基础option
             option: BarOption,
-            data: BarData,
+            // 待排序数组
+            data: sortData,
+            axisData: CreateAxisData(sortData.length),
             iterator: null,
             runTimeStatus: RunTimeStatus.Stop,
             interval: 0.5,
@@ -84,21 +131,22 @@ export default class AlgorithmBarChart extends React.Component<Props, State> {
         this.setState({runTimeStatus: RunTimeStatus.Step})
         this.next()
     }
-    // 初始化state，清除定时器
+    // 初始化state，清除定时器,运行第一步
     reset = () => {
         this.clearInterval()
-        const resetColorData = this.setColor(BarData)
-        const resetAxisData = this.resetAxisData(resetColorData)
-        this.setState({
-            data: resetAxisData,
-            option: {...this.addDataToOption(BarOption, resetAxisData)},
-            iterator: this.state.sortFunction(
-                resetAxisData, 
-                this.mapStatusToColor(Status.Current),
-                this.mapStatusToColor(Status.Operate), 
-                this.resetColor),
-            runTimeStatus: RunTimeStatus.Stop
-        })
+        this.setState(
+            {
+                axisData: CreateAxisData(this.state.data.length),
+                iterator: this.state.sortFunction(
+                    this.state.data, 
+                    this.exchangePosition
+                ),
+                runTimeStatus: RunTimeStatus.Stop
+            },
+            () => {
+                this.next()
+            }
+        )
     }
     // 下一步
     next = () => {
@@ -106,7 +154,7 @@ export default class AlgorithmBarChart extends React.Component<Props, State> {
             let value = this.state.iterator.next().value
             if (value) {
                 this.setState({
-                    option: {...this.addDataToOption(this.state.option, value)}}
+                    option: {...AddMiddleDataToOption(this.state.option, value, this.state.axisData)}}
                 )
             } else {
                 this.clearInterval()
@@ -158,69 +206,21 @@ export default class AlgorithmBarChart extends React.Component<Props, State> {
             clearInterval(this.timer)
         }
     }
-    // 设置柱形图color
-    setColor = (data: BarDataType, status?: Status, index?: number) => {
-        data = deepCopy(data)
-        let { colorList, dataList } = data
-        let color = this.mapStatusToColor(status)
-        // 没有index，所有图形为初始化颜色
-        if (!index) {
-            colorList = []
-            for (let i = 0; i < dataList.length; i++) {
-                colorList[i] = color
-            }
-        } else {// 设为固定状态颜色
-            colorList[index] = color
-        }
-        data.colorList = colorList
-        return data
+    exchangePosition = (arr: number[], i: number, j: number) => {
+        ExchangePosition(arr, this.state.axisData, i, j)
     }
-    resetColor = (data: BarDataType) => this.setColor(data).colorList
-    // status与color映射关系
-    mapStatusToColor = (status?: Status) => {
-        switch (status) {
-            case Status.Init:
-                return ColorMap.gray
-            case Status.Orderd:
-                return ColorMap.green
-            case Status.Current:
-                return ColorMap.blue
-            case Status.Operate:
-                return ColorMap.red
-            default:
-                return ColorMap.gray
-        }
-    }
-    // 重置x轴数据
-    resetAxisData = (data: BarDataType) => {
-        data = deepCopy(data)
-        let { xAxisData, dataList } = data
-        let arr = []
-        for (let i = 0; i < dataList.length; i++) {
-            arr.push(`${i}`)
-        }
-        xAxisData = arr
-        
-        return {...data, xAxisData: xAxisData}
-    }
-    // 处理chartOption 将数据填充到option中
-    addDataToOption = (option: BarOptionType, data: BarDataType) => {
-        const result = {...option}
-        const {dataList = [], colorList} = data
-        // 填充series数据
-        if (result.series.length > 0) {
-            result.series[0].data = dataList
-            result.series[0].itemStyle.color = (param: any) => {
-                return colorList[param.dataIndex]
-            }
-        }
-        // 填充x轴数据
-        result.xAxis[0].data = data.xAxisData
-
-        return result
+    setSortData = (data: number[]) => {
+        this.setState(
+        {
+            data: data 
+        }, 
+        () => {
+            this.reset()
+        })
     }
     render() {
         const BarStyle = {width: '800px', height: '600px'}
+        const FormStyle = {width: '800px'}
         return (
             <div>
                 <Button.Group>
@@ -245,6 +245,12 @@ export default class AlgorithmBarChart extends React.Component<Props, State> {
                     step={0.5}
                     onChange={this.intervalChange}
                 />
+                <div style={FormStyle}>
+                    <SortNumForm
+                        sortNum={this.state.data}
+                        setSortNum={this.setSortData}
+                    />
+                </div>
                 <Chart
                     style={BarStyle}
                     option={this.state.option}

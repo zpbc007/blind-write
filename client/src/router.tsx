@@ -160,7 +160,9 @@ export class SubRouterView extends React.Component<Prop> {
 // 排序算法类型
 export enum SortType {
     bubble = 'bubble',
-    select = 'select'
+    select = 'select',
+    insert = 'insert',
+    shell = 'shell'
 }
 export interface Params {
     id: string,
