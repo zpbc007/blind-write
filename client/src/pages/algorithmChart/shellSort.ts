@@ -42,11 +42,11 @@ export default function* shellSort (
             }
             yield { arr: data, sortedIndex, unsortedInedx, operateIndex, currentIndex }
         }
-        h = Math.floor(h / 3)
+        h = Math.floor(h / 3)   
     }
-    // sortedIndex = sortedIndex.concat(unsortedInedx)
-    // unsortedInedx = []
-    // operateIndex = []
-    // currentIndex = []
-    // yield { arr: data, sortedIndex, unsortedInedx, operateIndex, currentIndex }
+    sortedIndex = sortedIndex.concat(unsortedInedx)
+    unsortedInedx = []
+    operateIndex = []
+    currentIndex = []
+    yield { arr: data, sortedIndex, unsortedInedx, operateIndex, currentIndex }
 }       
